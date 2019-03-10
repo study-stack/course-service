@@ -1,6 +1,7 @@
 package com.stdstack.service.course.courseservice.util;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -15,13 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 
 public class WithUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-    public WithUserHandlerMethodArgumentResolver() {
-        System.out.println("INITIALIZED!!!");
-    }
-
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(WithUser.class);
+        return parameter.hasParameterAnnotation(WithUser.class) &&
+                parameter.getParameterType().equals(UserInfo.class);
     }
 
     @Override
@@ -29,6 +27,15 @@ public class WithUserHandlerMethodArgumentResolver implements HandlerMethodArgum
                                   ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
-        return (DefaultClaims) JwtUtil.claimsFromRequest((HttpServletRequest) webRequest.getNativeRequest());
+
+        HttpServletRequest httpServletRequest = (HttpServletRequest) webRequest.getNativeRequest();
+
+        String authorizationHeader = httpServletRequest.getHeader("Authorization");
+        authorizationHeader = authorizationHeader.replace("Bearer ", "");
+        Claims claims = Jwts.parser()
+                .setSigningKey("123".getBytes()) //todo just example
+                .parseClaimsJws(authorizationHeader).getBody();
+        String name = (String) claims.get("user_name");
+        return new UserInfo(name);
     }
 }

@@ -2,6 +2,7 @@ package com.stdstack.service.course.courseservice.controller;
 
 import com.stdstack.service.course.courseservice.model.Course;
 import com.stdstack.service.course.courseservice.repository.CourseRepository;
+import com.stdstack.service.course.courseservice.util.UserInfo;
 import com.stdstack.service.course.courseservice.util.WithUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -28,7 +29,7 @@ public class CourseController {
     }
 
     @GetMapping(value = "courses/{id}")
-    public Course getCourse(@PathVariable Long id, @WithUser DefaultClaims claims) {
+    public Course getCourse(@PathVariable Long id, @WithUser UserInfo userInfo) {
         return courseRepository.getOne(id);
     }
 
