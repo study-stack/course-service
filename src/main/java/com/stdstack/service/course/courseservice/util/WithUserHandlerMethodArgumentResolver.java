@@ -27,6 +27,7 @@ public class WithUserHandlerMethodArgumentResolver implements HandlerMethodArgum
         HttpServletRequest httpServletRequest = (HttpServletRequest) webRequest.getNativeRequest();
 
         String authorizationHeader = httpServletRequest.getHeader("Authorization");
+        if (authorizationHeader == null) return null; //to local
         authorizationHeader = authorizationHeader.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("123".getBytes()) //todo just example

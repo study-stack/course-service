@@ -25,11 +25,11 @@ public class CourseController {
 
     @GetMapping(value = "courses")
     public List<Course> getCourses() {
-        return null;
+        return courseRepository.findAll();
     }
 
     @GetMapping(value = "courses/{id}")
-    public Course getCourse(@PathVariable Long id, @WithUser UserInfo userInfo) {
+    public Course getCourse(@PathVariable Long id) {
         return courseRepository.getOne(id);
     }
 

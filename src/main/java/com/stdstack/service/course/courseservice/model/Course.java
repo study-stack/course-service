@@ -1,5 +1,6 @@
 package com.stdstack.service.course.courseservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "courses")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class Course {
 
     @Id
