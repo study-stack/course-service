@@ -33,6 +33,7 @@ public class WithUserHandlerMethodArgumentResolver implements HandlerMethodArgum
                 .setSigningKey("123".getBytes()) //todo just example
                 .parseClaimsJws(authorizationHeader).getBody();
         String name = (String) claims.get("user_name");
-        return new UserInfo(name);
+        Long id = Long.valueOf((Integer) claims.get("user_id"));
+        return new UserInfo(name, id);
     }
 }

@@ -1,19 +1,16 @@
 package com.stdstack.service.course.courseservice.controller;
 
-import com.stdstack.service.course.courseservice.model.Course;
+import com.stdstack.service.course.courseservice.dto.CourseInfoDTO;
 import com.stdstack.service.course.courseservice.repository.CourseRepository;
+import com.stdstack.service.course.courseservice.service.mapper.CourseMapper;
 import com.stdstack.service.course.courseservice.util.UserInfo;
 import com.stdstack.service.course.courseservice.util.WithUser;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.impl.DefaultClaims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -22,15 +19,18 @@ import java.util.List;
 public class CourseController {
 
     private final CourseRepository courseRepository;
+    private final CourseMapper courseMapper;
 
     @GetMapping(value = "courses")
-    public List<Course> getCourses() {
-        return courseRepository.findAll();
+    public List<CourseInfoDTO> getCourses(@WithUser UserInfo userInfo) {
+        // вернуть дто
+        //положить в жвт юезр ид
+        return courseMapper.getCoursesDTO(userInfo.getUserId());
     }
 
     @GetMapping(value = "courses/{id}")
-    public Course getCourse(@PathVariable Long id) {
-        return courseRepository.getOne(id);
+    public CourseInfoDTO getCourse(@PathVariable Long id, @WithUser UserInfo userInfo) {
+        return courseMapper.courseToCourseDTO(userInfo.getUserId(), id);
     }
 
 }
