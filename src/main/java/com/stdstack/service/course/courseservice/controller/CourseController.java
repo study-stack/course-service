@@ -26,7 +26,7 @@ public class CourseController {
 
     @GetMapping(value = "courses/{id}")
     public CourseInfoDTO getCourse(@PathVariable Long id, @WithUser UserInfo userInfo) {
-        return courseMapper.courseToCourseDTO(userInfo.getUserId(), id);
+        return courseMapper.courseToCourseDTO(id, userInfo.getUserId());
     }
 
     @PostMapping(value = "courses/{id}")
