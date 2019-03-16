@@ -19,7 +19,8 @@ update steps set next_id = 3, prev_id = 1 where id = 2;
 update steps set next_id = 4, prev_id = 2 where id = 3;
 update steps set next_id = 5, prev_id = 3 where id = 4;
 update steps set next_id = 6, prev_id = 4 where id = 5;
-update steps set next_id = 7, prev_id = 5 where id = 6;
+
+update steps set next_id = 7 where id = 6;
 update steps set next_id = 8, prev_id = 6 where id = 7;
 update steps set prev_id = 7 where id = 8;
 

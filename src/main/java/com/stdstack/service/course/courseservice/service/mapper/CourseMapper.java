@@ -8,12 +8,14 @@ import com.stdstack.service.course.courseservice.repository.UserCourseStepReposi
 import com.stdstack.service.course.courseservice.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CourseMapper {
 
     private final UserCourseStepRepository userCourseStepRepository;

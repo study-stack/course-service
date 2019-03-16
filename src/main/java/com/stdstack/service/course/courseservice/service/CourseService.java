@@ -8,4 +8,5 @@ public interface CourseService {
     Step getCurrentStepForCourse(Course course, Long userId);
     Step goNextStepForCourse(Course course);
     Step applyCourse(Course course);
+    Step enterTheCourse(Long courseId, Long userId);
 }
