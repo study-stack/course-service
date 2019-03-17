@@ -13,6 +13,8 @@ public interface UserCourseStepRepository extends JpaRepository<UserCourseStep, 
 
     UserCourseStep findByUserIdAndCourse(Long user, Course course);
 
+    UserCourseStep findByCurrentTrueAndCourseAndUserId(Course course, Long userId);
+
     List<UserCourseStep> findAllByUserId(Long user);
 
     List<UserCourseStep> findAllByUserIdAndCourse(Long user, Course course);

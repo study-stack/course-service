@@ -30,4 +30,5 @@ public class UserCourseStep {
     @JoinColumn(name = "step_id", nullable = false)
     private Step step;
 
+    private Boolean current = false;
 }

@@ -34,4 +34,9 @@ public class CourseController {
         return courseService.enterTheCourse(id, userInfo.getUserId());
     }
 
+    @PostMapping(value = "courses/{id}/next")
+    public Step nextStep(@PathVariable Long id, @WithUser UserInfo userInfo) {
+        return courseService.goNextStepForCourse(id, userInfo.getUserId());
+    }
+
 }

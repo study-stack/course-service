@@ -23,14 +23,17 @@ public class CourseMapper {
     private final CourseService courseService;
 
     public CourseInfoDTO courseToCourseDTO(Long courseId, Long userId) {
-        CourseInfoDTO courseInfoDTO = new CourseInfoDTO();
         Course course = courseRepository.getOne(courseId);
+        return courseToCourseDTO(course, userId);
+    }
+
+    public CourseInfoDTO courseToCourseDTO(Course course, Long userId) {
+        CourseInfoDTO courseInfoDTO = new CourseInfoDTO();
+
         Step currentStep = courseService.getCurrentStepForCourse(course, userId);
-
-
         courseInfoDTO.setCurrentStep(currentStep);
         courseInfoDTO.setDescription(course.getDescription());
-        courseInfoDTO.setId(courseId);
+        courseInfoDTO.setId(course.getId());
         courseInfoDTO.setName(course.getName());
         courseInfoDTO.setPrerequisites(course.getPrerequisites());
         courseInfoDTO.setSkills(course.getSkills());

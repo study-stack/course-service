@@ -21,7 +21,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Step getCurrentStepForCourse(Course course, Long userId) {
-        UserCourseStep currentStep = userCourseStepRepository.findByUserIdAndCourse(userId, course);
+        UserCourseStep currentStep = userCourseStepRepository.findByCurrentTrueAndCourseAndUserId(course, userId);
         if (currentStep == null) {
             return null;
         }
@@ -29,8 +29,23 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Step goNextStepForCourse(Course course) {
-        return null;
+    @Transactional
+    public Step goNextStepForCourse(Long courseId, Long userId) {
+        Course course = courseRepository.getOne(courseId);
+        UserCourseStep currentStep = userCourseStepRepository.findByCurrentTrueAndCourseAndUserId(course, userId);
+
+        currentStep.setCurrent(false);
+        userCourseStepRepository.save(currentStep);
+        Step nextStep = currentStep.getStep().getNext();
+
+        UserCourseStep ucs = UserCourseStep.builder()
+                .course(course)
+                .userId(userId)
+                .step(nextStep)
+                .current(true)
+                .build();
+        userCourseStepRepository.save(ucs);
+        return nextStep;
     }
 
     @Override
@@ -57,6 +72,7 @@ public class CourseServiceImpl implements CourseService {
                     .course(course)
                     .userId(userId)
                     .step(firstStep)
+                    .current(true)
                     .build();
             userCourseStepRepository.saveAndFlush(ucs);
 
@@ -64,6 +80,19 @@ public class CourseServiceImpl implements CourseService {
         }
         // returns the current step to create UI for it. e.g step#10
         return currentStep;
+    }
+
+    @Override
+    public boolean isStepAvailable(Long courseId, Long stepId, Long userId) {
+        Course course = courseRepository.getOne(courseId);
+        Step step = stepRepository.getOne(stepId);
+        UserCourseStep courseStep = userCourseStepRepository.findByUserIdAndCourseAndStep(userId, course, step);
+        return courseStep != null;
+    }
+
+    @Override
+    public boolean isCourseAvailable(Long courseId, Long userId) {
+        return false;
     }
 
 

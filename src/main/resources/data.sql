@@ -5,14 +5,14 @@ insert into courses values
                                                                                  'sql experience');
 
 insert into steps (id, title, short_description, course_id, next_id, prev_id) values
-(1, 'Title Java Spring Project', 'learn java together', 1, null,null),
-(2, 'Title Java Spring Project', 'learn java together', 1, null,null),
-(3, 'Title Java Spring Project', 'learn java together', 1, null,null),
-(4, 'Title Java Spring Project', 'learn java together', 1, null,null),
-(5, 'Title Java Spring Project', 'learn java together', 1, null,null),
-(6, 'Title Java Spring Project', 'learn java together', 2, null,null),
-(7, 'Title Java Spring Project', 'learn java together', 2, null,null),
-(8, 'Title Java Spring Project', 'learn java together', 2, null,null);
+(1, 'Title Java Spring Project #1', 'learn java together', 1, null,null),
+(2, 'Title Java Spring Project #2', 'learn java together', 1, null,null),
+(3, 'Title Java Spring Project #3', 'learn java together', 1, null,null),
+(4, 'Title Java Spring Project #4', 'learn java together', 1, null,null),
+(5, 'Title Java Spring Project #5', 'learn java together', 1, null,null),
+(6, 'Title SQL #1', 'learn SQL together', 2, null,null),
+(7, 'Title SQL #2', 'learn SQL together', 2, null,null),
+(8, 'Title SQL #3', 'learn SQL together', 2, null,null);
 
 update steps set next_id = 2 where id = 1;
 update steps set next_id = 3, prev_id = 1 where id = 2;
