@@ -1,6 +1,7 @@
 package com.stdstack.service.course.courseservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.stdstack.service.course.courseservice.model.enums.StepType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,6 +39,13 @@ public class Step {
     @OneToOne
     @JsonIgnore
     private Step prev;
+
+    @Column(name = "step_type")
+    @Enumerated(EnumType.STRING)
+    private StepType type;
+
+    @OneToOne
+    private StepData stepData;
 
     @OneToMany(mappedBy = "step")
     @JsonIgnore

@@ -2,6 +2,7 @@ package com.stdstack.service.course.courseservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -18,8 +19,11 @@ public class Course {
     @GeneratedValue
     private Long id;
 
+    @Column(length = 2048)
     private String name;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String description;
 
     private String skills;
