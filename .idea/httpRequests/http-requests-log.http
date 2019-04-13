@@ -1,0 +1,12 @@
+GET http://localhost:8080/courses/api/courses/1
+Authorization: Bearer undefined
+
+<> 2019-04-13T100337.200.html
+
+###
+
+GET http://localhost:8080/courses/api/courses/1
+Authorization: Bearer {{auth_token}}
+
+###
+

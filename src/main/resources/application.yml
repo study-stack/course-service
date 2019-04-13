@@ -1,11 +1,11 @@
-spring:
-  application:
-    name: stdstack-course-service
-
-server:
-  port: 0
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://stdstack-eureka-server:8761/eureka/
+#spring:
+#  jpa:
+#    database: postgresql
+#    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+#    hibernate:
+#      ddl-auto: create-drop
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/platform
+#    username: postgres
+#    password: postgres
+#    initialization-mode: always
