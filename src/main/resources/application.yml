@@ -3,9 +3,4 @@ spring:
     name: stdstack-course-service
 
 server:
-  port: 0
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://stdstack-eureka-server:8761/eureka/
+  port: 8080
