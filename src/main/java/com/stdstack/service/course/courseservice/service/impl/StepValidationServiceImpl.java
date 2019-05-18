@@ -10,6 +10,7 @@ import com.stdstack.service.course.courseservice.repository.StepRepository;
 import com.stdstack.service.course.courseservice.repository.UserCourseStepRepository;
 import com.stdstack.service.course.courseservice.service.CourseService;
 import com.stdstack.service.course.courseservice.service.StepValidationService;
+import com.stdstack.service.course.courseservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,14 @@ import org.springframework.stereotype.Service;
 public class StepValidationServiceImpl implements StepValidationService {
 
     private final UserCourseStepRepository userCourseStepRepository;
+
     private final CourseRepository courseRepository;
+
     private final StepRepository stepRepository;
+
     private final CourseService courseService;
+
+    private final UserService userService;
 
     @Override
     public Step checkStep(Long userId, Long courseId, Object input) {
@@ -37,5 +43,11 @@ public class StepValidationServiceImpl implements StepValidationService {
             }
         }
         throw new RuntimeException("Step cannot be processed");
+    }
+
+    @Override
+    public Step checkStep(String username, Long courseId, Object input) {
+        return checkStep(userService.getUserByUsername(username)
+                                    .getId(), courseId, input);
     }
 }

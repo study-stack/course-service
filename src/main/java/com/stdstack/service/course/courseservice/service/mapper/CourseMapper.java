@@ -6,7 +6,9 @@ import com.stdstack.service.course.courseservice.model.Step;
 import com.stdstack.service.course.courseservice.repository.CourseRepository;
 import com.stdstack.service.course.courseservice.repository.UserCourseStepRepository;
 import com.stdstack.service.course.courseservice.service.CourseService;
+import com.stdstack.service.course.courseservice.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +21,12 @@ import java.util.stream.Collectors;
 public class CourseMapper {
 
     private final UserCourseStepRepository userCourseStepRepository;
+
     private final CourseRepository courseRepository;
+
     private final CourseService courseService;
+
+    private final UserService userService;
 
     public CourseInfoDTO courseToCourseDTO(Long courseId, Long userId) {
         Course course = courseRepository.getOne(courseId);
@@ -41,10 +47,17 @@ public class CourseMapper {
         return courseInfoDTO;
     }
 
-    public List<CourseInfoDTO> getCoursesDTO(Long userId) {
+    public List<CourseInfoDTO> getCoursesDTO(String username) {
+
         return courseRepository.findAll()
-                .stream()
-                .map(course -> courseToCourseDTO(course.getId(), userId))
-                .collect(Collectors.toList());
+                               .stream()
+                               .map(course -> courseToCourseDTO(course.getId(), userService.getUserByUsername(username)
+                                                                                           .getId()))
+                               .collect(Collectors.toList());
+    }
+
+    public CourseInfoDTO courseToCourseDTO(Long id, String username) {
+        return courseToCourseDTO(id, userService.getUserByUsername(username)
+                                                .getId());
     }
 }

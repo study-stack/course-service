@@ -7,6 +7,7 @@ import com.stdstack.service.course.courseservice.repository.CourseRepository;
 import com.stdstack.service.course.courseservice.repository.StepRepository;
 import com.stdstack.service.course.courseservice.repository.UserCourseStepRepository;
 import com.stdstack.service.course.courseservice.service.CourseService;
+import com.stdstack.service.course.courseservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class CourseServiceImpl implements CourseService {
 
     private final UserCourseStepRepository userCourseStepRepository;
+
     private final CourseRepository courseRepository;
+
     private final StepRepository stepRepository;
+
+    private final UserService userService;
 
     @Override
     public Step getCurrentStepForCourse(Course course, Long userId) {
@@ -39,13 +44,19 @@ public class CourseServiceImpl implements CourseService {
         Step nextStep = currentStep.getStep().getNext();
 
         UserCourseStep ucs = UserCourseStep.builder()
-                .course(course)
-                .userId(userId)
-                .step(nextStep)
-                .current(true)
-                .build();
+                                           .course(course)
+                                           .userId(userId)
+                                           .step(nextStep)
+                                           .current(true)
+                                           .build();
         userCourseStepRepository.save(ucs);
         return nextStep;
+    }
+
+    @Override
+    public Step goNextStepForCourse(Long courseId, String username) {
+        return goNextStepForCourse(courseId, userService.getUserByUsername(username)
+                                                        .getId());
     }
 
     @Override
@@ -55,6 +66,7 @@ public class CourseServiceImpl implements CourseService {
 
     /**
      * Enter or continue work with step course
+     *
      * @param courseId
      * @param userId
      * @return
@@ -65,21 +77,27 @@ public class CourseServiceImpl implements CourseService {
         Course course = courseRepository.getOne(courseId);
         Step currentStep = getCurrentStepForCourse(course, userId);
         if (currentStep == null) {
-//            init
+            //            init
             // create 1st step
             Step firstStep = stepRepository.findFirstStep(course);
             UserCourseStep ucs = UserCourseStep.builder()
-                    .course(course)
-                    .userId(userId)
-                    .step(firstStep)
-                    .current(true)
-                    .build();
+                                               .course(course)
+                                               .userId(userId)
+                                               .step(firstStep)
+                                               .current(true)
+                                               .build();
             userCourseStepRepository.saveAndFlush(ucs);
 
             return firstStep;
         }
         // returns the current step to create UI for it. e.g step#10
         return currentStep;
+    }
+
+    @Override
+    public Step enterTheCourse(Long courseId, String username) {
+        return enterTheCourse(courseId, userService.getUserByUsername(username)
+                                                   .getId());
     }
 
     @Override
@@ -94,6 +112,5 @@ public class CourseServiceImpl implements CourseService {
     public boolean isCourseAvailable(Long courseId, Long userId) {
         return false;
     }
-
 
 }
