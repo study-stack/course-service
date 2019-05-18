@@ -4,9 +4,10 @@ spring:
   port: 8080
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/std_stack
+    url: jdbc:postgresql://google/stdtest?cloudSqlInstance=stdstack:europe-west2:std-stack-base&socketFactory=com.google.cloud.sql.postgres.SocketFactory
     username: postgres
-    password: root
+    password: postgres
+    initialization-mode: always
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
@@ -14,6 +15,8 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  hibernate:
+    ddl-auto: create-drop
 logging:
   level:
-    root: debug
+    root: info
