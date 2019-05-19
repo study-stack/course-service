@@ -26,7 +26,7 @@ management:
   endpoints:
     web:
       cors:
-        allowed-origins: *
+        allowed-origins: "*"
 
 logging:
   level:
