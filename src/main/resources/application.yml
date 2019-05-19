@@ -1,13 +1,9 @@
 spring:
+  port: 8080
   application:
     name: stdstack-course-service
-  port: 8080
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://google/stdtest?cloudSqlInstance=stdstack:europe-west2:std-stack-base&socketFactory=com.google.cloud.sql.postgres.SocketFactory
-    username: postgres
-    password: postgres
-    initialization-mode: always
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
@@ -15,8 +11,10 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-  hibernate:
-    ddl-auto: create-drop
+  flyway:
+    locations: classpath:/db/migration
+    baseline-on-migrate: true
+
 logging:
   level:
     root: info

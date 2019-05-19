@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: prod
+  datasource:
+    url: jdbc:postgresql://google/stdtest?cloudSqlInstance=stdstack:europe-west2:std-stack-base&socketFactory=com.google.cloud.sql.postgres.SocketFactory
+    username: postgres
+    password: postgres
+    initialization-mode: always
