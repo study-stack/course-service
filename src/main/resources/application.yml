@@ -22,12 +22,6 @@ spring:
         database-name: stdtest
         instance-connection-name: stdstack:europe-west2:std-stack-base
 
-management:
-  endpoints:
-    web:
-      cors:
-        allowed-origins: "*"
-
 logging:
   level:
     root: info
