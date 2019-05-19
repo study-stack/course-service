@@ -3,9 +3,13 @@ env: flex
 runtime_config:
   jdk: openjdk8
 env_variables:
-  SPRING_PROFILES_ACTIVE: "gcp"
+  SPRING_PROFILES_ACTIVE: "gcp,prod"
 handlers:
   - url: /.*
     script: this field is required, but ignored
 manual_scaling:
   instances: 1
+resources:
+  cpu: 1
+  memory_gb: 0.8
+  disk_size_gb: 10

@@ -14,7 +14,11 @@ spring:
   flyway:
     locations: classpath:/db/migration
     baseline-on-migrate: true
-
+  cloud:
+    gcp:
+      sql:
+        database-name: stdtest
+        instance-connection-name: stdstack:europe-west2:std-stack-base
 logging:
   level:
     root: info

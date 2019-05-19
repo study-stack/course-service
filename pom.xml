@@ -101,7 +101,6 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>5.2.4</version>
                 <configuration>
-                    <configFile>${flyway-properties-file}</configFile>
                     <baselineOnMigrate>true</baselineOnMigrate>
                 </configuration>
             </plugin>
@@ -112,23 +111,23 @@
         <profile>
             <id>dev</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <flyway-properties-file>src/main/resources/flyway-dev.properties</flyway-properties-file>
                 <spring.active.profile>dev</spring.active.profile>
             </properties>
         </profile>
+
         <profile>
             <id>prod</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <flyway-properties-file>src/main/java/resources/flyway-prod.properties</flyway-properties-file>
                 <spring.active.profile>prod</spring.active.profile>
             </properties>
-        </profile>
-
-        <profile>
-            <id>cloud-gcp</id>
             <build>
                 <plugins>
                     <plugin>
