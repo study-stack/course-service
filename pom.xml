@@ -114,7 +114,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <flyway-properties-file>src/main/resources/flyway-dev.properties</flyway-properties-file>
+                <flyway-properties-file>src/main/java/resources/flyway-dev.properties</flyway-properties-file>
                 <spring.active.profile>dev</spring.active.profile>
             </properties>
         </profile>
