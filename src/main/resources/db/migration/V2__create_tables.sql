@@ -1,10 +1,10 @@
-create table answer_option
+create table if not exists answer_option
 (
   id      bigserial primary key,
   content text
 );
 
-create table courses
+create table if not exists courses
 (
   id            bigserial primary key,
   description   text,
@@ -13,7 +13,7 @@ create table courses
   skills        varchar(255)
 );
 
-create table questions
+create table if not exists questions
 (
   id                bigserial primary key,
   content           text,
@@ -22,7 +22,7 @@ create table questions
       references answer_option
 );
 
-create table questions_answers
+create table if not exists questions_answers
 (
   question_id bigint not null
     constraint questions_answers__questions
@@ -34,7 +34,7 @@ create table questions_answers
       references answer_option
 );
 
-create table step_data
+create table if not exists step_data
 (
   id              bigserial primary key,
   content         text,
@@ -44,7 +44,7 @@ create table step_data
       references questions
 );
 
-create table steps
+create table if not exists steps
 (
   id                bigserial primary key,
   short_description varchar(255),
@@ -64,7 +64,7 @@ create table steps
       references step_data
 );
 
-create table user_course_step
+create table if not exists user_course_step
 (
   id        bigserial primary key,
   current   boolean,
