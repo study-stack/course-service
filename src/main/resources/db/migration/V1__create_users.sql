@@ -13,3 +13,6 @@ VALUES (1, 'usmanovbf@yandex.ru', '$2a$10$h7DZlXJUVHXsl.Uwl/03PORIM0KGZQEt13DXmr
 
 INSERT INTO users (ID, USERNAME, PASSWORD)
 VALUES (2, 'user@gmail.com', '$2a$10$h7DZlXJUVHXsl.Uwl/03PORIM0KGZQEt13DXmrBijimTK52msBley');
+
+INSERT INTO users (ID, USERNAME, PASSWORD)
+VALUES (3, 'u@g.com', '$2a$10$h7DZlXJUVHXsl.Uwl/03PORIM0KGZQEt13DXmrBijimTK52msBley');
