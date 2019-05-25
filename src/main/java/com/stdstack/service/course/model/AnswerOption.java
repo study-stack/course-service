@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class AnswerOption {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long id;
 
     @Lob

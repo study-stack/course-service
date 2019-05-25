@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class StepData {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "multiple_answer")

@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class UserCourseStep {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "user_id", nullable = false)
