@@ -28,8 +28,6 @@ create table if not exists questions_answers
     constraint questions_answers__questions
       references questions,
   answers_id  bigint not null
-    constraint questions_answers__answers_id__ux
-      unique
     constraint questions_answers__answer_option
       references answer_option
 );
