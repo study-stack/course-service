@@ -14,6 +14,8 @@ import com.stdstack.service.course.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+
 @Service
 @RequiredArgsConstructor
 public class StepValidationServiceImpl implements StepValidationService {
@@ -42,7 +44,9 @@ public class StepValidationServiceImpl implements StepValidationService {
                 return courseService.goNextStepForCourse(courseId, userId);
             }
         }
-        throw new RuntimeException("Step cannot be processed");
+        String message = MessageFormat.format("Step cannot be processed: course step =  {0}, course = {1}",
+                                             courseStep.toString(), course.toString());
+        throw new RuntimeException(message);
     }
 
     @Override
